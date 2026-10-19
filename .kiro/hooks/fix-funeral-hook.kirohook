@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "fix-funeral-hook",
+  "description": "commit 修复 bug 时，自动为该 bug 生成墓志铭并调用 Bug 殡仪馆 API 下葬",
+  "version": "1",
+  "when": {
+    "type": "event",
+    "pattern": "git commit",
+    "description": "在每次 git commit 之后触发"
+  },
+  "then": {
+    "type": "agent",
+    "prompt": "刚刚完成了一次 git commit。请检查本次 commit 的 message 与 diff：如果 message 以 fix 开头或包含修复动作，说明有一只 Bug 光荣殉职。请提取其中的异常类型（ErrorType）与案发现场（文件与行号），然后：1) 用黑幽默风格为该 bug 撰写生平、死因鉴定与墓志铭；2) 调用本地殡仪馆 API 完成下葬：POST http://localhost:8000/api/v1/bugs，请求体字段：ErrorType、ErrorMessage、Language、Location、StackExcerpt、Biography、CauseOfDeath、Epitaph、Severity(1-5)、BurialType(earth/fire/sea)；3) 最后向用户播报葬礼结果：「已为 {ErrorType} 举行{葬法}，墓志铭：{Epitaph}」。"
+  }
+}

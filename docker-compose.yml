@@ -1,0 +1,24 @@
+services:
+  backend:
+    build: ./backend
+    container_name: bug-funeral-backend
+    environment:
+      - FUNERAL_DB_PATH=/data/funeral.db
+      - LLM_BASE_URL=${LLM_BASE_URL:-}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-}
+    volumes:
+      - funeral-data:/data
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    container_name: bug-funeral-frontend
+    depends_on:
+      - backend
+    ports:
+      - "8088:80"
+
+volumes:
+  funeral-data:

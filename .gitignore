@@ -1,0 +1,12 @@
+node_modules/
+dist/
+__pycache__/
+**/__pycache__/
+*.pyc
+backend/app/data/
+*.db
+*.log
+recordings/
+frames/
+.env
+.DS_Store
